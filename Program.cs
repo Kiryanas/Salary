@@ -5,12 +5,18 @@ public class Reader
 {
     static void Main()
     {
-        File.WriteAllText(@"SampleOutput.txt", string.Empty);
+        Writer Writer = new Writer();
+        InputTableSourceMethod();
+        
+        File.WriteAllText(@"D:\SampleOutput.txt", string.Empty);
+
         var InputTable = new Dictionary<string, string>();
         var OutputTable = new Dictionary<string, string>();
+
         Console.Write("Введите размер премии: ");
         int premium = int.Parse(Console.ReadLine());
-        foreach (string line in File.ReadLines(@"D:\\SampleInput.txt"))
+
+        foreach (string line in File.ReadLines(@"D:\SampleInput.txt"))
         {
             string[] subs = line.Split('\t');
             InputTable.Add(subs[0], subs[1]);
@@ -31,14 +37,16 @@ public class Reader
         }
         Console.WriteLine("Done!");
         Console.ReadLine();
+
+
     }
-}
-public class Writer
-{
-    public static async Task FileWrtr(string str)
+
+    private static void InputTableSourceMethod()
     {
-        using StreamWriter file = new("SampleOutput.txt", append: true);
-        await file.WriteLineAsync(str);
+        Console.Write("Введите адрес исходного файла: ");
+        string InputTableSource = Console.ReadLine();
+        Console.WriteLine(File.Exists(InputTableSource) ? "File exists." : "File does not exist.");
     }
+
 }
 
